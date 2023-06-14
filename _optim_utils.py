@@ -1351,7 +1351,6 @@ def _optim_state_dict(
                 state = (
                     {} if param_key is None else optim_state_dict["state"][param_key]
                 )
-                print(f"RV: calling _Gather_orig_param_state")
                 unflat_state = [
                     _gather_orig_param_state(
                         fsdp_param_info,
@@ -1501,7 +1500,6 @@ def _all_gather_optim_state(
         processed_state for _ in range(fsdp_state.world_size)
     ]
     assert fsdp_state.world_size == fsdp_state.process_group.size()
-    print(f"RV: {fsdp_state.process_group.size()} vs {torch.distributed.distributed_c10d._get_default_group().size()}")
     dist.all_gather_object(object_list, processed_state, group=fsdp_state.process_group)
 
     # Convert the gathered, pre-processed state of each rank to the original one.
