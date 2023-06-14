@@ -1595,7 +1595,6 @@ def _gather_orig_param_state(
     ):
         return optim_state
 
-    print(f"RV: gathering state")
     gathered_state = _all_gather_optim_state(fsdp_state, optim_state)
 
     # Unflatten state values.
